@@ -67,12 +67,12 @@ Create an account by clicking Sign Up and download the models (mano_v*_*.zip). U
 Note that MANO model falls under the [MANO license](https://mano.is.tue.mpg.de/license.html).
 ## Demo
 
-For visualizaiton in world view, run with:
+For visualization in world view, run with:
 ```bash
 python demo.py --video_path ./example/video_0.mp4  --vis_mode world
 ```
 
-For visualizaiton in camera view, run with:
+For visualization in camera view, run with:
 ```bash
 python demo.py --video_path ./example/video_0.mp4 --vis_mode cam
 ```
