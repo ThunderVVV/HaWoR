@@ -21,8 +21,6 @@ supervision
 pycocotools
 joblib
 natsort
-git+https://github.com/facebookresearch/pytorch3d.git@stable
-torch-scatter==2.1.2
 evo
 pytorch-minimize
 mmengine==0.10.4
@@ -33,5 +31,4 @@ easydict
 loguru
 dill
 lapx
-chumpy@git+https://github.com/mattloper/chumpy
 moderngl-window==2.4.6
