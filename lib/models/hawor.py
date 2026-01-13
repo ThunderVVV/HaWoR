@@ -203,7 +203,7 @@ class HAWOR(pl.LightningModule):
         
         s_out = self.mano.query(out)
         j3d = s_out.joints
-        j2d = self.project(j3d, out['pred_cam'], center, scale, img_focal, img_center)
+        j2d_full, j2d = self.project(j3d, out['pred_cam'], center, scale, img_focal, img_center, return_full=True)
         j2d = j2d / self.crop_size - 0.5 # norm to [-0.5, 0.5]
 
         trans_full = self.get_trans(out['pred_cam'], center, scale, img_focal, img_center)
@@ -217,6 +217,7 @@ class HAWOR(pl.LightningModule):
             },
             'pred_keypoints_3d': j3d.clone(),
             'pred_keypoints_2d': j2d.clone(),
+            'pred_keypoints_2d_full': j2d_full.clone(),
             'out': out,
         }
         # print(output)
@@ -386,6 +387,7 @@ class HAWOR(pl.LightningModule):
         pred_shape = []
         pred_rotmat = []
         pred_trans = []
+        pred_kpts_2d_full = []
 
         # To-do: efficient implementation with batch
         items = []
@@ -426,6 +428,7 @@ class HAWOR(pl.LightningModule):
             pred_shape.append(out['pred_shape'].cpu())
             pred_rotmat.append(out['pred_rotmat'].cpu())
             pred_trans.append(out['trans_full'].cpu())
+            pred_kpts_2d_full.append(output['pred_keypoints_2d_full'].cpu())
 
 
         results = {'pred_cam': torch.cat(pred_cam),
@@ -433,6 +436,7 @@ class HAWOR(pl.LightningModule):
                 'pred_shape': torch.cat(pred_shape),
                 'pred_rotmat': torch.cat(pred_rotmat),
                 'pred_trans': torch.cat(pred_trans),
+                'pred_keypoints_2d': torch.cat(pred_kpts_2d_full),
                 'img_focal': img_focal,
                 'img_center': img_center}
         
