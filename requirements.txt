@@ -32,3 +32,4 @@ loguru
 dill
 lapx
 moderngl-window==2.4.6
+ujson
