@@ -58,9 +58,9 @@ class HAWOR(pl.LightningModule):
                 for param in self.backbone.parameters():
                     param.requires_grad = False
             else:
-                print('WARNING: init backbone from sratch !!!')
+                print('WARNING: init backbone from scratch !!!')
         except:
-            print('WARNING: init backbone from sratch !!!')
+            print('WARNING: init backbone from scratch !!!')
 
         # Space-time memory
         if cfg.MODEL.ST_MODULE: 
