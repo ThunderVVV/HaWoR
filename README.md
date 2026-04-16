@@ -80,9 +80,7 @@ python demo.py --video_path ./example/video_0.mp4 --vis_mode cam
 ## Training
 The training code will be released soon. 
 
-## Evaluation
-
-DexYCB evaluation code (not cleaned) is available at https://github.com/ThunderVVV/dex-ycb-toolkit .
+## Evaluation on HOT3D
 
 ### Download HOT3D
 
@@ -131,6 +129,10 @@ Evaluation:
 ```
 python scripts/scripts_eval/eval_hawor_hot3d.py --eval_stage
 ```
+
+## Evaluation on DexYCB
+
+DexYCB evaluation code (not cleaned) is available at https://github.com/ThunderVVV/dex-ycb-toolkit .
 
 
 ## Acknowledgements
