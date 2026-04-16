@@ -80,6 +80,59 @@ python demo.py --video_path ./example/video_0.mp4 --vis_mode cam
 ## Training
 The training code will be released soon. 
 
+## Evaluation
+
+DexYCB evaluation code (not cleaned) is available at https://github.com/ThunderVVV/dex-ycb-toolkit .
+
+### Download HOT3D
+
+Get `Hot3DAria_download_urls.json` and `Hot3DAssets_download_urls.json` from [hot3d website](https://www.projectaria.com/datasets/hot3D/) and put them under `hot3d/data_downloader/`.
+
+Download a copy of MANO offical website model(`mano_v1_2.zip`) and put them to `hot3d/mano_v1_2`
+
+```
+cd hot3d/data_downloader
+python3 dataset_downloader_base_main.py -c Hot3DAssets_download_urls.json -o ../dataset --sequence_name all
+python3 dataset_downloader_base_main.py -c Hot3DAria_download_urls.json -o ../dataset --data_types all --sequence_name P0001_a68492d5 P0001_9b6feab7 P0014_8254f925 P0011_76ea6d47 P0014_84ea2dcc P0001_8d136980 P0012_476bae57 P0012_130a66e1 P0014_24cb3bf0 P0010_1c9fe708 P0002_2ea9af5b P0011_11475e24 P0010_0ecbf39f P0010_160e551c P0015_42b8b389 P0012_915e71c6 P0002_65085bfc P0011_47878e48 P0011_cee8fe4f P0002_016222d1 P0012_d85e10f6 P0012_119de519 P0010_41c4c626 P0012_f7e3880b P0009_02511c2f P0011_72efb935 P0010_924e574e 
+```
+
+*: Downloading and processing code under `hot3d/` is adapted from [Official HOT3D Toolkit](https://github.com/facebookresearch/hot3d).
+
+### Extract HOT3D GT
+```
+mkdir datasets
+cd hot3d
+python export_gt.py
+mv hot3d_dataset_export ../datasets/hot3d_valset_export
+```
+
+### Preprocess
+```
+python lib/datasets/hot3d_dataset_preprocess.py --video_root datasets/hot3d_valset_export --set_file val.json --for_eval
+```
+
+### Eval
+
+Run hand motion estimation:
+
+```
+python scripts/scripts_eval/eval_hawor_hot3d.py --inference_stage --gen_hand_mask
+```
+
+Then run SLAM stage:
+
+```
+python scripts/scripts_eval/test_mdslam_hot3d.py
+
+```
+
+Evaluation:
+
+```
+python scripts/scripts_eval/eval_hawor_hot3d.py --eval_stage
+```
+
+
 ## Acknowledgements
 Parts of the code are taken or adapted from the following repos:
 - [HaMeR](https://github.com/geopavlakos/hamer/)

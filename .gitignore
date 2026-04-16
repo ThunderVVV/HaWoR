@@ -3,6 +3,11 @@
 /example/video_0
 /weights
 /app_pytorch3d*
+/hot3d/dataset
+/hot3d/*_export
+/hot3d/data_downloader/*.json
+/hot3d/mano_v1_2
+
 
 .vscode/
 **/.DS_Store
