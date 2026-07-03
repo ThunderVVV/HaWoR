@@ -306,7 +306,7 @@ std::vector<torch::Tensor> altcorr_cuda_forward(
   const dim3 threads(BLOCK_H, BLOCK_W);
 
 
-  AT_DISPATCH_FLOATING_TYPES_AND_HALF(fmap1.type(), "altcorr_forward_kernel", ([&] {
+  AT_DISPATCH_FLOATING_TYPES_AND_HALF(fmap1.scalar_type(), "altcorr_forward_kernel", ([&] {
     altcorr_forward_kernel<scalar_t><<<blocks, threads>>>(
         fmap1.packed_accessor32<scalar_t,4,torch::RestrictPtrTraits>(),
         fmap2.packed_accessor32<scalar_t,4,torch::RestrictPtrTraits>(),
